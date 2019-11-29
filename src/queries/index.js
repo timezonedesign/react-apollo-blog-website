@@ -135,6 +135,8 @@ export const GET_ALL_USERS = gql`
             bio
             profileImage
             userName
+            email
+            _id
         }
     }
 `;

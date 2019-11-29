@@ -38,142 +38,125 @@ class AllUsers extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      
+      query_check: false,
       data: dataTable.dataRows.map((prop, key) => {
         return {
-          id: key,
-          name: prop[0],
-          position: prop[1],
-          office: prop[2],
-          age: prop[3],
-          actions: (
-            // we've added some custom button actions
-            <div className="actions-right">
-              {/* use this button to add a edit kind of action */}
-              <Button
-                justIcon
-                round
-                simple
-                onClick={() => {
-                  let obj = this.state.data.find(o => o.id === key);
-                  alert(
-                    "You've clicked EDIT button on \n{ \nName: " +
-                      obj.name +
-                      ", \nposition: " +
-                      obj.position +
-                      ", \noffice: " +
-                      obj.office +
-                      ", \nage: " +
-                      obj.age +
-                      "\n}."
-                  );
-                }}
-                color="warning"
-                className="edit"
-              >
-                <Dvr />
-              </Button>{" "}
-              {/* use this button to remove the data row */}
-              <Button
-                justIcon
-                round
-                simple
-                onClick={() => {
-                  var data = this.state.data;
-                  data.find((o, i) => {
-                    if (o.id === key) {
-                      // here you should add some custom code so you can delete the data
-                      // from this component and from your server as well
-                      data.splice(i, 1);
-                      return true;
-                    }
-                    return false;
-                  });
-                  this.setState({ data: data });
-                }}
-                color="danger"
-                className="remove"
-              >
-                <Close />
-              </Button>{" "}
-            </div>
-          )
+          
         };
       })
       
     };
-    this.getUsers = this.getUsers.bind(this);
-  }
-  componentDidMount() {
-    this.getUsers();
-  }
-  getUsers () {
-    console.log("ok");
-    <Query query={GET_ALL_USERS}>
-
-      {({ data, loading, error }) => {
-
-        if (loading) return 
-        if (error) return 
-        console.log(data.getAllUsers.length);
-        return 
-      }}
-
-    </Query>
   }
   render() {
     const { classes } = this.props;
     return (
-      <GridContainer>
-        <GridItem xs={12}>
-          <Card>
-            <CardHeader color="primary" icon>
-              <CardIcon color="primary">
-                <Assignment />
-              </CardIcon>
-              <h4 className={classes.cardIconTitle}>All Users</h4>
-            </CardHeader>
-            <CardBody>
-              <ReactTable
-                data={this.state.data}
-                filterable
-                columns={[
-                  {
-                    Header: "Username",
-                    accessor: "name"
-                  },
-                  {
-                    Header: "Name",
-                    accessor: "position"
-                  },
-                  {
-                    Header: "Email",
-                    accessor: "office"
-                  },
-                  {
-                    Header: "Role",
-                    accessor: "age"
-                  },
-                  {
-                    Header: "Posts",
-                    accessor: "age"
-                  },
-                  {
-                    Header: "Actions",
-                    accessor: "actions",
-                    sortable: false,
-                    filterable: false
-                  }
-                ]}
-                defaultPageSize={10}
-                showPaginationTop
-                showPaginationBottom={false}
-                className="-striped -highlight"
-              />
-            </CardBody>
-          </Card>
-        </GridItem>
-      </GridContainer>
+      <Query query={GET_ALL_USERS}>
+        {({ loading, data, error }) => {
+          if (loading) return <div></div>
+          if (error) return <div></div>
+
+            console.log(data.getAllUsers);
+            if (!this.state.query_check) {
+              this.setState({
+                query_check: true,
+                data: data.getAllUsers.map(user => {
+                  return {
+                    id: user._id,
+                    userName: user.userName,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    email: user.email,
+                    actions: (
+                      // we've added some custom button actions
+                      <div className="actions-right">
+                        {/* use this button to add a edit kind of action */}
+                        <Button
+                          justIcon
+                          round
+                          simple
+                          onClick={() => {
+                            alert(
+                              "You've clicked EDIT button on \n{ \nName: "
+                            );
+                          }}
+                          color="warning"
+                          className="edit"
+                        >
+                          <Dvr />
+                        </Button>{" "}
+                        {/* use this button to remove the data row */}
+                        <Button
+                          justIcon
+                          round
+                          simple
+                          onClick={() => {
+                            
+                          }}
+                          color="danger"
+                          className="remove"
+                        >
+                          <Close />
+                        </Button>{" "}
+                      </div>
+                    )
+                  };
+                })
+              });
+            }
+            return (
+              <GridContainer>
+                <GridItem xs={12}>
+                  <Card>
+                    <CardHeader color="primary" icon>
+                      <CardIcon color="primary">
+                        <Assignment />
+                      </CardIcon>
+                      <h4 className={classes.cardIconTitle}>All Users</h4>
+                    </CardHeader>
+                    <CardBody>
+                      <ReactTable
+                        data={this.state.data}
+                        filterable
+                        columns={[
+                          {
+                            Header: "Username",
+                            accessor: "userName"
+                          },
+                          {
+                            Header: "Email",
+                            accessor: "email"
+                          },
+                          {
+                            Header: "First Name",
+                            accessor: "firstName"
+                          },
+                          {
+                            Header: "Last Name",
+                            accessor: "lastName"
+                          },
+                          {
+                            Header: "Role",
+                            accessor: "role"
+                          },
+                          {
+                            Header: "Actions",
+                            accessor: "actions",
+                            sortable: false,
+                            filterable: false
+                          }
+                        ]}
+                        defaultPageSize={10}
+                        showPaginationTop
+                        showPaginationBottom={false}
+                        className="-striped -highlight"
+                      />
+                    </CardBody>
+                  </Card>
+                </GridItem>
+              </GridContainer>
+            );
+        }}
+        </Query>
     );
   }
 }

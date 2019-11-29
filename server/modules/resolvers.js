@@ -38,7 +38,7 @@ const resolvers = {
             return user;
         },
     
-        getAllUsers: async (root, args, { User }) => {
+        getAllUsers: async (parent) => {
             const users = await User.find().sort({
                 joinDate: "desc"
             });
