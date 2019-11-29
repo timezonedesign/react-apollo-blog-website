@@ -42,6 +42,7 @@ class RegisterPage extends React.Component {
       email: "",
       password: "",
       confirm_password: "",
+      role: "user",
       error: ""
     };
     this.handleToggle = this.handleToggle.bind(this);
@@ -69,7 +70,6 @@ class RegisterPage extends React.Component {
     });
   }
   onSignup(event, signupUser) {
-    console.log(this.state);
     event.preventDefault();
     signupUser().then(async ({ data }) => {
       Cookies.set('token', data.signupUser.token);
@@ -121,7 +121,7 @@ class RegisterPage extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <Mutation mutation={SIGNUP_USER} variables={{ firstName: this.state.firstname, lastName: this.state.lastname, email: this.state.email, userName: this.state.username, password: this.state.password }}>
+      <Mutation mutation={SIGNUP_USER} variables={{ firstName: this.state.firstname, lastName: this.state.lastname, email: this.state.email, userName: this.state.username, password: this.state.password, role: this.state.role }}>
         {(signupUser, { loading, error, data }) => { 
           if (loading) return 'Loading...';
           if (error) return `Error! ${error.message}`;

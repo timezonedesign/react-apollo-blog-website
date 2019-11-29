@@ -52,8 +52,8 @@ export const DELETE_POST = gql`
 ////////////////////////////////////////////// USER QUERIES/////////////////////////////////////////////////
 
 export const SIGNUP_USER = gql`
-    mutation($firstName: String!, $lastName: String!, $email: String!, $userName: String!, $password: String!){
-        signupUser(firstName: $firstName, lastName: $lastName, email: $email, userName: $userName, password: $password){ token }
+    mutation($firstName: String!, $lastName: String!, $email: String!, $userName: String!, $password: String!, $role: String){
+        signupUser(firstName: $firstName, lastName: $lastName, email: $email, userName: $userName, password: $password, role: $role){ token }
     }
 `;
 
@@ -137,6 +137,7 @@ export const GET_ALL_USERS = gql`
             userName
             email
             _id
+            role
         }
     }
 `;

@@ -33,6 +33,9 @@ const UserSchema = new Schema({
   profileImage: {
     type: String
   },
+  role: {
+    type: String
+  },
   joinDate: {
     type: Date,
     default: Date.now

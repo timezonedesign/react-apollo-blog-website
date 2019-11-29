@@ -82,7 +82,8 @@ const resolvers = {
               lastName: user.lastName,
               email: user.email,
               userName: user.userName,
-              password: user.password
+              password: user.password,
+              role: user.role
             }).save();
       
             return { token: createToken(newUser, jwtPrivateKey, "1hr") };

@@ -63,9 +63,9 @@ class AllUsers extends React.Component {
                   return {
                     id: user._id,
                     userName: user.userName,
-                    firstName: user.firstName,
-                    lastName: user.lastName,
+                    name: user.firstName + " " + user.lastName,
                     email: user.email,
+                    role: user.role,
                     actions: (
                       // we've added some custom button actions
                       <div className="actions-right">
@@ -127,12 +127,8 @@ class AllUsers extends React.Component {
                             accessor: "email"
                           },
                           {
-                            Header: "First Name",
-                            accessor: "firstName"
-                          },
-                          {
-                            Header: "Last Name",
-                            accessor: "lastName"
+                            Header: "Name",
+                            accessor: "name"
                           },
                           {
                             Header: "Role",

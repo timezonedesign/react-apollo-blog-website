@@ -18,6 +18,7 @@ const typeDefs = gql`
         email: String!
         userName: String!
         joinDate: String
+        role: String
     }
 
     type Token {
@@ -45,7 +46,7 @@ const typeDefs = gql`
 
         deletePost(_id: ID!): Post,
         
-        signupUser(firstName: String!, lastName: String!, email: String!, userName: String!, password: String!): Token
+        signupUser(firstName: String!, lastName: String!, email: String!, userName: String!, password: String!, role: String): Token
 
         signinUser(userName: String!, password: String!): Token
 
