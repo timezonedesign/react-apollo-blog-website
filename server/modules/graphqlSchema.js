@@ -3,10 +3,19 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
 
     type Post {
-        _id: ID,
-        title: String,
-        content: String
+        _id: ID!
+        author: ID!
+        title: String!
+        content: String!
+        like_count: Int
     },
+
+    type Comment {
+        _id: ID!
+        author: Int!
+        content: String!
+        post_id: Int!
+    }
 
     type User {
         _id: ID
@@ -40,6 +49,8 @@ const typeDefs = gql`
     },
 
     type Mutation {
+        addComment(author: Int!, content: String!, post_id: Int): Comment,
+
         addPost(title: String!, content: String!): Post,
 
         updatePost(_id: ID!, title: String!, content: String!): Post,

@@ -4,6 +4,7 @@ var generator = require('generate-password');
 const axios = require('axios');
 const Post = require('./models/post');
 const User = require('./models/user');
+const Comment = require('./models/comment');
 
 const jwtPrivateKey = "Xn4X8vchcTHKcjFR";
 
@@ -52,6 +53,10 @@ const resolvers = {
         }
     },
     Mutation: {
+        addComment: (parent, comment) => {
+            const newComment = new Comment({ author: comment.author, content: comment.content, post_id: comment.post_id });
+            return newComment.save();
+        },
         addPost: (parent, post) => {
             const newPost = new Post({ title: post.title, content: post.content });
             return newPost.save();
