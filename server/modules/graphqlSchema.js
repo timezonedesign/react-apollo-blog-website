@@ -4,17 +4,17 @@ const typeDefs = gql`
 
     type Post {
         _id: ID!
-        author: ID!
+        author: ID
         title: String!
         content: String!
         like_count: Int
+        comments: [Comment]
     },
 
     type Comment {
         _id: ID!
         author: Int!
         content: String!
-        post_id: Int!
     }
 
     type User {
@@ -49,7 +49,7 @@ const typeDefs = gql`
     },
 
     type Mutation {
-        addComment(author: Int!, content: String!, post_id: Int): Comment,
+        addComment(author: Int!, content: String!, post_id: ID!): Post,
 
         addPost(title: String!, content: String!): Post,
 

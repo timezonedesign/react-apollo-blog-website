@@ -3,11 +3,10 @@ import { gql } from 'apollo-boost';
 ////////////////////////////////////////////// COMMENT QUERIES/////////////////////////////////////////////////
 
 export const ADD_COMMENT = gql`
-    mutation($author: Int!, $content: String!, $post_id: Int!) {
+    mutation($author: Int!, $content: String!, $post_id: ID!) {
         addComment(author: $author, content: $content, post_id: $post_id) {
             author
             content
-            post_id
         }
     }
 `;

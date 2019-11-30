@@ -135,7 +135,7 @@ class BlogPostPage extends React.Component {
 
     </Query>
             <SectionBlogInfo />
-            <SectionComments />
+            <SectionComments id={{ _id }}/>
           </div>
         </div>
         {/* <SectionSimilarStories /> */}

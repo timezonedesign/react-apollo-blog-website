@@ -53,9 +53,22 @@ const resolvers = {
         }
     },
     Mutation: {
-        addComment: (parent, comment) => {
-            const newComment = new Comment({ author: comment.author, content: comment.content, post_id: comment.post_id });
-            return newComment.save();
+          addComment: async  (parent, params) => {
+            const newComment = await new Comment({ author: params.author, content: params.content });
+            var post = await Post.findOne({ _id: params.post_id });
+            console.log(post._id);
+              if (!post) {
+                throw new Error('Post Not Found');
+              }
+              if (post.comments == undefined) {
+                post.comments = newComment;
+              } else {
+                post.comments.push(newComment);
+              }
+              console.log(post.comments);
+            return Post.findByIdAndUpdate(params.post_id, { $set: { comments: post.comments } }, { new: true })
+            .catch(err => new Error(err));
+
         },
         addPost: (parent, post) => {
             const newPost = new Post({ title: post.title, content: post.content });

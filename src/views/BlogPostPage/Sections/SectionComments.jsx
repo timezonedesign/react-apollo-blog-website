@@ -27,7 +27,7 @@ class SectionComments extends React.Component {
     this.state = {
       content: '',
       author: 12,
-      post_id: 123
+      id: this.props.id
     }
     this.onContentChange = this.onContentChange.bind(this);
   }
@@ -47,10 +47,9 @@ class SectionComments extends React.Component {
     });
   }
   render() {
-      
-    const { classes } = this.props;
+    const { classes} = this.props;
     return (
-      <Mutation mutation={ADD_COMMENT} variables={{ author: this.state.author, content: this.state.content, post_id: this.state.post_id }}>
+      <Mutation mutation={ADD_COMMENT} variables={{ author: this.state.author, content: this.state.content, post_id: this.props.id._id }}>
         {(addComment, { loading, error, data }) => {
           if (loading) return 'Loading...';
           if (error) return `Error! ${error.message}`;
